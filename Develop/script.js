@@ -1,5 +1,4 @@
 // Assignment code here
-//Generator functions - https://www.net-comber.com/charset.html
 
 const resultEl = document.getElementById('result');
 const lengthEl = document.getElementById('length');
@@ -7,30 +6,70 @@ const uppercaseEl = document.getElementById('uppercase');
 const lowercaseEl = document.getElementById('lowercase');
 const numberEl = document.getElementById('result');
 const symbolEl = document.getElementById('result');
-const generateEl = document.getElementById('result');
 
+// functions
 const randomFunc = {
-  lower: getRandomLower,
-  upper: getRandomUpper,
-  number: getRandomNumber,
-  symbol: getRandomSymbols,
+  lower: RandomLower,
+  upper: RandomUpper,
+  number: RandomNumber,
+  symbol: RandomSymbols,
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
-function getRandomLower () {
+function RandomLower () {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 }
-function getRandomUpper () {
+function RandomUpper () {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
 }
-function getRandomNumber () {
+function RandomNumber () {
   return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
 }
-function getRandomSymbols () {
+function RandomSymbols () {
   const symbols = '/*-+.?<>;:"|{[}]!@#%$^&'
   return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
-console.log(getRandomLower())
+// Get references to the #generate element
+var generateEl = document.querySelector("#generate");
+
+const length = +lengthEl;
+const hasLower = lowercaseEl;
+const hasUpper = uppercaseEl;
+const hasNumber = numberEl;
+const hasSymbol = symbolEl;
+
+// Add event listener to generate button
+generateEl.addEventListener("click", writePassword);
+
+
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password"); 
+
+  passwordText.value = password;
+
+}
+
+
+
+  // start window prompts
+  function generatePassword () {
+
+    let generatePassword = '';
+
+    enter = window.prompt("How characters between 8 and 129?");
+  
+    if(!enter){
+      alert("Value not accepted")
+    } else if (enter < 8 || enter > 128) {
+      window.prompt("Please enter a number between 8 and 129!")
+
+    } else {
+      window.prompt("Would you like lowercase letters?")
+
+    } else {
+      window.prompt("Would you like uppercase letters?")
+    }
+
+  }
