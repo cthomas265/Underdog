@@ -1,69 +1,105 @@
 // Assignment code here
- //set up variables - length, upper, lower, numbers, characters
-var lower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var upper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-var symbol = ['!', '\"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', "/", ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', "`", "{", '|', "}", "~"];
+ //variables
+var lower = "abcdefdhijklmnopqrstuvwxyz"
+var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+var number = "1234567890"
+var symbol = "!@#$&{}*()_-+=[];:'`~%^<,>.?/|"
+var passLength
+var uppercase
+var symbolCheck
+var numberCheck
+var setChar = lower;
+console.log(setChar)
 
-// Get references to the #generate element
+
 var generateBtn = document.querySelector("#generate");
-var password = "";
-var passArray = [];
 
- //set up window prompts
-function generatePassword() {
-
-  //prompt length
-  function lengthEl () {
-  var lengthEl = window.prompt("Enter a number between 8-128 for length of password.");
-
-  if (lengthEl < 8 || lengthEl > 128 || isNaN(lengthEl) || lengthEl === "") {
+// collect options, loop if not valid
+function lengthEl(){
+  passLength = prompt("Enter a number between 8 and 128 for password length.");
+  if (isNaN(passLength)) {
     alert("Please enter a number between 8 and 128.");
     lengthEl();
-  } else
-  console.log(lengthEl);
-  trueLower();
+  } else if (passLength<8 || passLength>128) {
+    alert("That is not between 8 and 128.");
+    lengthEl();
+  }
 }
 
- // verify
-  function trueLower () {
-  var truelower = confirm('Click OK if lowercase is wanted.');
-  if (trueLower) {
-    console.log("include lowercase.");
-    trueUpper();
+function setUpper() {
+  uppercase = prompt("Would you like your password to include uppercase?");
+  if (uppercase === "YES" || uppercase === "yes" || uppercase === "Yes") {
+    uppercase = true;
+    return uppercase;
+  } else if (uppercase === "NO" || uppercase === "no" || uppercase === "No") {
+  uppercase = false;
+  return uppercase;
   } else {
-    console.log("do not include lowercase");
-    trueUpper();
+  alert("Yes ... or ... No");
+  setUpper();
   }
-  }
-  function trueUpper () {
-  var trueupper = confirm('Click OK if uppercase is wanted.');
-  if (trueUpper) {
-    console.log("include uppercase.");
-    trueNumber();
+  return uppercase
+}
+function setSymbol() {
+  symbolCheck = prompt("How about symbols?");
+  if (symbolCheck === "YES" || symbolCheck === "yes" || symbolCheck === "Yes") {
+    symbolCheck = true;
+    return symbolCheck;
+  } else if (symbolCheck === "NO" || symbolCheck === "no" || symbolCheck === "No") {
+    symbolCheck = false;
+    return symbolCheck;
   } else {
-    console.log("do not include uppercase");
-    trueNumber();
+  alert("Please respond with Yes or No.");
+  setSymbol();
   }
-  }
-  function trueNumber () {
-  var truenumber = confirm('Click OK if a number is wanted.');
-  if (trueNumber) {
-    console.log("include a number.");
-    trueSymbol();
+  return symbolCheck
+}
+function setNumber() {
+  numberCheck = prompt("Numbers?");
+  if (numberCheck === "YES" || numberCheck === "yes" || numberCheck === "Yes") {
+    numberCheck = true;
+    return numberCheck;
+  } else if (numberCheck === "NO" || numberCheck === "no" || numberCheck === "No") {
+    numberCheck = false;
+    return numberCheck;
   } else {
-    console.log("do not include a number");
-    trueSymbol();
+    alert("Please respond with Yes or No.");
+  setNumber();
   }
+  return numberCheck
+}
+
+function generatePassword() {
+  lengthEl();
+  console.log(lengthEl);
+  setUpper();
+  console.log(setUpper);
+  setSymbol();
+  console.log(setSymbol);
+  setNumber();
+  console.log(setNumber);
+   // verify
+  if (numberCheck && uppercase && symbolCheck) {
+    setChar += numberCheck + uppercase + symbol;
+  } else if (numberCheck && uppercase) {
+    setChar += numberCheck + uppercase;
+  } else if (numberCheck && symbolCheck) {
+    setChar += numberCheck + symbol;
+  } else if (uppercase && symbolCheck) {
+    setChar += uppercase && symbol;
+  } else if (numberCheck) {
+    setChar += numberCheck;
+  } else if (uppercase) {
+    setChar += uppercase;
+  } else if (symbolCheck) {
+    setChar += symbol;
   }
-  function trueSymbol () {
-  var symbol = confirm('Click OK if symbols is wanted.');
-  if (trueSymbol) {
-    console.log("include symbols.");
-  } else {
-    console.log("do not include symbols");
-  }  
+  console.log(setChar)
+  for(var i = 0; i < passLength; i++) {
+    password += setChar.charAt(Math.floor(Math.random() * setChar.length))
   }
+  return password;
+}
 
 // Write password to the #password input
   function writePassword() {
@@ -72,7 +108,7 @@ function generatePassword() {
 
   passwordText.value = password;
   }
-}
+
 
 // Add event listener to generate button
   generateBtn.addEventListener("click", writePassword);
