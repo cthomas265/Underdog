@@ -26,6 +26,7 @@ function lengthEl(){
   }
 }
 
+
 function setUpper() {
   uppercase = prompt("Would you like your password to include uppercase?");
   if (uppercase === "YES" || uppercase === "yes" || uppercase === "Yes") {
@@ -79,32 +80,32 @@ function generatePassword() {
   setNumber();
   console.log(setNumber);
    // verify
-  if (numberCheck && uppercase && symbolCheck) {
-    setChar += numberCheck + uppercase + symbol;
-  } else if (numberCheck && uppercase) {
-    setChar += numberCheck + uppercase;
-  } else if (numberCheck && symbolCheck) {
-    setChar += numberCheck + symbol;
-  } else if (uppercase && symbolCheck) {
-    setChar += uppercase && symbol;
-  } else if (numberCheck) {
-    setChar += numberCheck;
-  } else if (uppercase) {
-    setChar += uppercase;
-  } else if (symbolCheck) {
+  if (numberCheck) {
+    setChar += number;
+  } 
+  if (uppercase) {
+    setChar += upper;
+  }
+  if (symbolCheck) {
     setChar += symbol;
   }
   console.log(setChar)
+
+  var result = "";
   for(var i = 0; i < passLength; i++) {
-    password += setChar.charAt(Math.floor(Math.random() * setChar.length))
-  }
-  return password;
+    result += setChar.charAt(Math.floor(Math.random() * setChar.length))
+  } 
+  console.log(result)
+  return result;
 }
 
 // Write password to the #password input
   function writePassword() {
-  var password = generatePassword();
-  password = password.replace('[object HTMLTextAreaElement]', '');
+    var password = [];
+    console.log(password)
+  password = generatePassword();
+  console.log(password)
+  // password = password.replace('[object HTMLTextAreaElement]', '');
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
