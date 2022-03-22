@@ -19,3 +19,4 @@ github - https://github.com/cthomas265/Underdog
 ![image](https://user-images.githubusercontent.com/98835210/159205397-a991492c-ff99-4453-8e65-2516dcf9c9d6.png)
 
 
+With assistance from https://github.com/andritjm. James was big help in getting me to understand JS. I fixed a couple issues in his code along the way.
